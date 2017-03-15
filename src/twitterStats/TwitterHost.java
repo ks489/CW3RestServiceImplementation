@@ -17,42 +17,60 @@ public class TwitterHost {
 	private final static String ACCESS_TOKEN = "61495742-GIbmeqRshY5fCYOQMHVrnOORKc8zLeDMNZkUUvRUg";
 	private final static String ACCESS_TOKEN_SECRET = "9UsiI8xzIrgbZFd35rpw9a1frXFfZlzoq7zqzwxi7VjA0";
 	
-	public static void main(String[] args) throws IOException, TwitterException {
+	private TwitterFactory twitterFactory;
+	private Twitter twitter;
+
+	public TwitterHost(){
+		twitterFactory = new TwitterFactory();
+        twitter = twitterFactory.getInstance();
+        twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
+        twitter.setOAuthAccessToken(new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET));
+	}
+	
+	public User getUserDetails(String userName) throws TwitterException{
+		User user = twitter.showUser(userName);
+		return user;
+	}
+	
+	public String getNumberOfFollowers(String userName){
+		//userName = "UoLInformatics";
 		
-        try{
-        	TwitterFactory twitterFactory = new TwitterFactory();
+		/*ResponseList<Status> status1;
+		try {
+			status1 = twitter.getUserTimeline(userName, new Paging(1,200));
+			for (Status tweets :status1){
+	            System.out.println(tweets.getText());
+	        }
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 
-            //Create new Twitter instance
+        
+		return "";
+	}
+	
+	public int getNumberOfTweets(User user) throws TwitterException{
+		ResponseList<Status> status1;
+		try {
+			status1 = twitter.getUserTimeline(user.getId(), new Paging(1,3600));
+			return status1.size();
 
-            Twitter twitter = twitterFactory.getInstance();
-
-           //setup OAuth Consumer Credentials
-
-            twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
-
-             //setup OAuth Access Token
-
-            twitter.setOAuthAccessToken(new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET));
-
-             String userName = "UoLInformatics";
-
-             //get the most recent 200 tweets from the given user name. 
-
-             //Note 200 is the maximum number of tweets get per 1 call. 
-
-             //check Twitter API documentation for more detail
-
-             ResponseList<Status> status1 =twitter.getUserTimeline(userName, new Paging(1,200));
-
-             // print the tweet text
-
-             for (Status tweets :status1){
-
-                 System.out.println(tweets.getText());
-
-             }
-        }catch(Exception e){
-        	System.out.println(e.toString());
-        }
-  }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public String getNumberOfRetweets(){
+		return "";
+	}
+	
+	public String getMostActiveFollower(){
+		return "";
+	}
+	
 }
