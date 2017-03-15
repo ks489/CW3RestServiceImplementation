@@ -55,13 +55,8 @@ public class UniversityHost {
 	}
 	
 	public String submitNumberOfTweets(String passCode, String userName, int nTweets){
-		System.out.println("submit number of tweets");
-		System.out.println(nTweets);
-		System.out.println(passCode);
-		System.out.println(userName);
-		Client client = ClientBuilder.newClient();
-		String stringURL = BASE_URI+MessageFormat.format(SUBMITNUMBEROFTWEETS_URI + "/{0}/{1}/{2}/",  new Object[] {passCode, userName, new Integer(nTweets)});
-		System.out.println(BASE_URI+MessageFormat.format(SUBMITNUMBEROFTWEETS_URI + "/{0}/{1}/{2}/",  new Object[] {passCode, userName, new Integer(nTweets)}));
+		System.out.println("Submit Number of Tweets...");
+		Client client = ClientBuilder.newClient();		
 		WebTarget target =client.target(BASE_URI+MessageFormat.format(SUBMITNUMBEROFTWEETS_URI + "/{0}/{1}/{2}/",  new Object[] {passCode, userName, new Integer(nTweets)}));
 		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}

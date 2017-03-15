@@ -32,7 +32,10 @@ public class TwitterHost {
 		return user;
 	}
 	
-	public String getNumberOfFollowers(String userName){
+	public int getNumberOfFollowers(User user) throws TwitterException{
+		IDs userIdList = twitter.getFollowersIDs(user.getId());
+		long[] idArray = userIdList.getIDs();
+		return idArray.length;
 		//userName = "UoLInformatics";
 		
 		/*ResponseList<Status> status1;
@@ -48,8 +51,7 @@ public class TwitterHost {
 			e.printStackTrace();
 		}*/
 
-        
-		return "";
+
 	}
 	
 	public int getNumberOfTweets(User user) throws TwitterException{

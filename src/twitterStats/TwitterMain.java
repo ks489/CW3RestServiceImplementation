@@ -13,6 +13,10 @@ public class TwitterMain {
 		try {
 			User user = tHost.getUserDetails(userName);
 			
+			//First Test
+			int numOfFollowers = tHost.getNumberOfFollowers(user);
+			
+			//Second Test
 			int tweetCount = tHost.getNumberOfTweets(user);
 			String result = uHost.submitNumberOfTweets(PASSCODE, userName, tweetCount);
 			System.out.println("First result is " + result);
@@ -22,8 +26,5 @@ public class TwitterMain {
 			e.printStackTrace();
 		}
 		
-
-		
-		//System.out.println(username);
 	}
 }
