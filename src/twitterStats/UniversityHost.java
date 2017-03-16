@@ -32,9 +32,9 @@ public class UniversityHost {
 	*/
 	
 	private final static String GETUSERNAME_URI = "getUserName";
-	private final static String SUBMITNUMBEROFRETWEETS_URI = "submitNumberOfRetweets/{passCode}/{userName}/{nRTweets}";
-	private final static String SUBMITMOSTACTIVEFOLLOWER_URI = "submitMostActiveFollower/{passCode}/{userName}/{ActiveFollower}";
-	private final static String SUBMITNUMBEROFFOLLOWERS_URI = "submitNumberOfFollowers/{passCode}/{userName}/{nFollowers}";
+	private final static String SUBMITNUMBEROFRETWEETS_URI = "submitNumberOfRetweets";
+	private final static String SUBMITMOSTACTIVEFOLLOWER_URI = "submitMostActiveFollower";
+	private final static String SUBMITNUMBEROFFOLLOWERS_URI = "submitNumberOfFollowers";
 	private final static String SUBMITNUMBEROFTWEETS_URI = "submitNumberOfTweets";
 	private final static String TEST_URI = "hello";
 	
@@ -50,8 +50,11 @@ public class UniversityHost {
 		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}
 	
-	public void submitNumberOfFollowers(){
-		
+	public String submitNumberOfFollowers(String passCode, String userName, int nFollowers){
+		System.out.println("Submit Number of Followers...");
+		Client client = ClientBuilder.newClient();		
+		WebTarget target =client.target(BASE_URI+MessageFormat.format(SUBMITNUMBEROFFOLLOWERS_URI + "/{0}/{1}/{2}/",  new Object[] {passCode, userName, new Integer(nFollowers)}));
+		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}
 	
 	public String submitNumberOfTweets(String passCode, String userName, int nTweets){
@@ -61,12 +64,18 @@ public class UniversityHost {
 		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}
 	
-	public void submitNumberOfRetweets(){
-		
+	public String submitNumberOfRetweets(String passCode, String userName, int nRTweets){
+		System.out.println("Submit Number of Retweets...");
+		Client client = ClientBuilder.newClient();		
+		WebTarget target =client.target(BASE_URI+MessageFormat.format(SUBMITNUMBEROFRETWEETS_URI + "/{0}/{1}/{2}/",  new Object[] {passCode, userName, new Integer(nRTweets)}));
+		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}
 	
-	public void submitMostActiveFollower(){
-		
+	public String submitMostActiveFollower(String passCode, String userName, String ActiveFollower){
+		System.out.println("Submit Number of Retweets...");
+		Client client = ClientBuilder.newClient();		
+		WebTarget target =client.target(BASE_URI+MessageFormat.format(SUBMITMOSTACTIVEFOLLOWER_URI + "/{0}/{1}/{2}/",  new Object[] {passCode, userName, ActiveFollower}));
+		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}
 
 	public static String getSum(String a, String b) throws UniformInterfaceException{

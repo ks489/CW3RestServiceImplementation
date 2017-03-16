@@ -14,12 +14,25 @@ public class TwitterMain {
 			User user = tHost.getUserDetails(userName);
 			
 			//First Test
-			int numOfFollowers = tHost.getNumberOfFollowers(user);
+			/*int numOfFollowers = tHost.getNumberOfFollowers(user);
+			String followerResult = uHost.submitNumberOfFollowers(PASSCODE, userName, numOfFollowers);
+			System.out.println("Number of Followers Result : " + followerResult);*/
 			
 			//Second Test
-			int tweetCount = tHost.getNumberOfTweets(user);
-			String result = uHost.submitNumberOfTweets(PASSCODE, userName, tweetCount);
-			System.out.println("First result is " + result);
+			/*int tweetCount = tHost.getNumberOfTweets(user);
+			String tweetCountResult = uHost.submitNumberOfTweets(PASSCODE, userName, tweetCount);
+			System.out.println("Number of Tweets Result : " + tweetCountResult);*/
+			
+			//Third Test
+			/*int reTweetCount = tHost.getNumberOfRetweets(user);
+			String reTweetResult = uHost.submitNumberOfRetweets(PASSCODE, userName, reTweetCount);
+			System.out.println("Number of ReTweets Result : " + reTweetResult);*/
+			
+			//Fourth Test
+			String mostFollowedUser = tHost.getMostActiveFollower1(user);
+			String mostFollowed = uHost.submitMostActiveFollower(PASSCODE, userName, mostFollowedUser);
+			System.out.println("Most Active Follower Result : " + mostFollowed);
+			
 			
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
