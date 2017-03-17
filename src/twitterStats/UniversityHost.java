@@ -16,21 +16,22 @@ import com.sun.jersey.api.client.WebResource;
 
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
+import twitter4j.TwitterException;
+
+/**
+ * 
+ * @author Kyle Spindler
+ * @version 1.0
+ * Date : 17/03/2017
+ * Description : Integration into the University's API where it will verify outgoing twitter stats
+ *               
+ */
 public class UniversityHost {
-	//private final String BASE_URI ="http://localhost:8080/DemoRestwebservicetest/rest/demo/";
-	private final static String PASSCODE = "ks4686";
+
+	//University URI	
 	private final static String BASE_URI = "https://campus.cs.le.ac.uk/tyche/CO7214Rest2/rest/soa/";
-	private final static String DESCRIPTION = "https://campus.cs.le.ac.uk/tyche/CO7214Rest2/rest/application.wadl";
 	
-	/*
-	private final static String GETUSERNAME_URI = "getUserName/{passCode}";
-	private final static String SUBMITNUMBEROFRETWEETS_URI = "submitNumberOfRetweets/{passCode}/{userName}/{nRTweets}";
-	private final static String SUBMITMOSTACTIVEFOLLOWER_URI = "submitMostActiveFollower/{passCode}/{userName}/{ActiveFollower}";
-	private final static String SUBMITNUMBEROFFOLLOWERS_URI = "submitNumberOfFollowers/{passCode}/{userName}/{nFollowers}";
-	private final static String SUBMITNUMBEROFTWEETS_URI = "submitNumberOfTweets/{passCode}/{userName}/{nTweets}";
-	private final static String TEST_URI = "hello";
-	*/
-	
+	//University route endpoints
 	private final static String GETUSERNAME_URI = "getUserName";
 	private final static String SUBMITNUMBEROFRETWEETS_URI = "submitNumberOfRetweets";
 	private final static String SUBMITMOSTACTIVEFOLLOWER_URI = "submitMostActiveFollower";
@@ -42,14 +43,27 @@ public class UniversityHost {
 		
 	}
 	
+	/**
+	 * This method gets a random user's screen name from the  University's API
+	 * @param  University unique passcode
+	 * @return Success response from University API
+	 */
 	public String getUserName(String passCode){
+		System.out.println("Getting a user name from server");
 		Client client = ClientBuilder.newClient();
 		System.out.println(BASE_URI+MessageFormat.format(GETUSERNAME_URI + "/{0}",  passCode));
-		WebTarget target =client.target(BASE_URI+MessageFormat.format(GETUSERNAME_URI + "/{0}/",  passCode));
-			
+		WebTarget target =client.target(BASE_URI+MessageFormat.format(GETUSERNAME_URI + "/{0}/",  passCode));			
 		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}
 	
+	/**
+	 * This method submits the number of followers for a certain user to the University's API
+	 * for verification
+	 * @param  University unique passcode
+	 * @param  The user we are comparing
+	 * @param  The number of followers for a certain user
+	 * @return Success response from University API
+	 */
 	public String submitNumberOfFollowers(String passCode, String userName, int nFollowers){
 		System.out.println("Submit Number of Followers...");
 		Client client = ClientBuilder.newClient();		
@@ -57,6 +71,14 @@ public class UniversityHost {
 		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}
 	
+	/**
+	 * This method submits the number of tweets for a certain user to the University's API
+	 * for verification
+	 * @param  University unique passcode
+	 * @param  The user we are comparing
+	 * @param  The number of tweets for a certain user
+	 * @return Success response from University API
+	 */
 	public String submitNumberOfTweets(String passCode, String userName, int nTweets){
 		System.out.println("Submit Number of Tweets...");
 		Client client = ClientBuilder.newClient();		
@@ -64,6 +86,14 @@ public class UniversityHost {
 		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}
 	
+	/**
+	 * This method submits the number of retweets for a certain user to the University's API
+	 * for verification
+	 * @param  University unique passcode
+	 * @param  The user we are comparing
+	 * @param  The number of retweets for a certain user
+	 * @return Success response from University API
+	 */
 	public String submitNumberOfRetweets(String passCode, String userName, int nRTweets){
 		System.out.println("Submit Number of Retweets...");
 		Client client = ClientBuilder.newClient();		
@@ -71,32 +101,20 @@ public class UniversityHost {
 		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 	}
 	
+	/**
+	 * This method submits the most active follower for a certain user to the University's API
+	 * for verification
+	 * @param  University unique passcode
+	 * @param  The user we are comparing
+	 * @param  The most active user's screen name
+	 * @return Success response from University API
+	 */
 	public String submitMostActiveFollower(String passCode, String userName, String ActiveFollower){
 		System.out.println("Submit Number of Retweets...");
 		Client client = ClientBuilder.newClient();		
 		WebTarget target =client.target(BASE_URI+MessageFormat.format(SUBMITMOSTACTIVEFOLLOWER_URI + "/{0}/{1}/{2}/",  new Object[] {passCode, userName, ActiveFollower}));
 		return target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
-	}
-
-	public static String getSum(String a, String b) throws UniformInterfaceException{
-	
-		Client client = ClientBuilder.newClient();
-		
-		WebTarget target =client.target(BASE_URI+MessageFormat.format("sum/{0}/{1}", new Object[] {a,b}));
-			
-		return target.request(MediaType.TEXT_PLAIN).get(String.class);
-		
-	}
-
-	public static String getHello() throws UniformInterfaceException{     
-	
-		Client client = ClientBuilder.newClient();
-		
-		WebTarget target = client.target(BASE_URI + MessageFormat.format(TEST_URI, new Object[] {}));
-		
-		return target.request(MediaType.TEXT_PLAIN).get(String.class);
-	
-	}           
+	}         
 }
 
 
